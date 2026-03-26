@@ -1,0 +1,278 @@
+/* src/app/page.module.css */
+
+.container {
+  min-height: calc(100vh - 64px);
+  background: #ffffff;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 3rem;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #000000;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  color: #666666;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary, .btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+}
+
+.btnIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.btnPrimary {
+  background-color: #000000;
+  color: white;
+  border: 1px solid #000000;
+}
+
+.btnPrimary:hover {
+  background-color: #333333;
+  border-color: #333333;
+  transform: translateY(-1px);
+}
+
+.btnSecondary {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #cccccc;
+}
+
+.btnSecondary:hover {
+  background-color: #f5f5f5;
+  border-color: #999999;
+  transform: translateY(-1px);
+}
+
+/* Features Section */
+.features {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.featureCard {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e5e5;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  border-color: #000000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.featureIconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.featureIcon {
+  width: 32px;
+  height: 32px;
+  color: #000000;
+}
+
+.featureCard h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #000000;
+}
+
+.featureCard p {
+  color: #666666;
+  line-height: 1.5;
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.featureLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: gap 0.2s ease;
+}
+
+.featureLink:hover {
+  gap: 0.75rem;
+}
+
+.linkIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btnPrimary, .btnSecondary {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .featureCard {
+    padding: 1.5rem;
+  }
+
+  .featureIconWrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .featureIcon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: #000000;
+  }
+
+  .hero {
+    background: #0a0a0a;
+    border-bottom-color: #1a1a1a;
+  }
+
+  .heroTitle {
+    color: #ffffff;
+  }
+
+  .heroSubtitle {
+    color: #999999;
+  }
+
+  .btnPrimary {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+  }
+
+  .btnPrimary:hover {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+  }
+
+  .btnSecondary {
+    color: #ffffff;
+    border-color: #333333;
+  }
+
+  .btnSecondary:hover {
+    background-color: #1a1a1a;
+    border-color: #666666;
+  }
+
+  .featureCard {
+    background: #0a0a0a;
+    border-color: #1a1a1a;
+  }
+
+  .featureCard:hover {
+    border-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+  }
+
+  .featureIconWrapper {
+    background: #1a1a1a;
+  }
+
+  .featureIcon {
+    color: #ffffff;
+  }
+
+  .featureCard h3 {
+    color: #ffffff;
+  }
+
+  .featureCard p {
+    color: #999999;
+  }
+
+  .featureLink {
+    color: #ffffff;
+  }
+
+  .featureLink:hover {
+    color: #cccccc;
+  }
+}
