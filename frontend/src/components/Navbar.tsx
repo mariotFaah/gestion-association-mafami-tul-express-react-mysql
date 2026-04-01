@@ -10,7 +10,7 @@ import {
   UserPlusIcon,
   XMarkIcon,
   Bars3Icon
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid'; // Changé de 'outline' à 'solid' pour avoir des icônes pleines
 import styles from './Navbar.module.css';
 
 export default function Navbar() {

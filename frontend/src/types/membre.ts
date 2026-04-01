@@ -11,8 +11,10 @@ export interface Membre {
   lieu_cin: string | null;
   telephone: string | null;
   adress: string | null;
-  filiere: string | null;
-  niveau_etude: string | null;
-  region_origine: string | null;
+  filiere: string ;
+  niveau_etude: string ;
+  region_origine: string ;
   annee_adh: string | null;
+  droit_adhesion_2026: 'Complet' | 'Incomplet'; 
+
 }

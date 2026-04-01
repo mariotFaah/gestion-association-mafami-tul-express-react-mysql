@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Configuration CORS
 app.use(cors({
-  origin: 'http://localhost:3000', // Autorise votre frontend Next.js
+ origin: ['http://localhost:3001', 'http://127.0.0.1:8080', 'http://localhost:8080', 'http://localhost:5000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -34,11 +34,10 @@ db.connect(err => {
     console.error('Erreur de connexion MySQL:', err);
     throw err;
   }
-  console.log('✅ MySQL connecté');
+  console.log(' MySQL connecté');
 });
 
-// === ROUTES MEMBRES ===
-
+// === ROUTES MEMBRES
 // POST nouveau membre (unique ou multiple)
 app.post('/api/membres', (req, res) => {
   const membres = Array.isArray(req.body) ? req.body : [req.body];
@@ -80,8 +79,8 @@ app.post('/api/membres', (req, res) => {
       INSERT INTO membre 
       (nom, prenom, sexe, date_naiss, lieu_naiss, cin, date_cin, 
        lieu_cin, telephone, adress, filiere, niveau_etude, 
-       region_origine, annee_adh) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       region_origine, annee_adh,droit_adhesion_2026) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
@@ -98,7 +97,8 @@ app.post('/api/membres', (req, res) => {
       membre.filiere || null,
       membre.niveau_etude || null,
       membre.region_origine || null,
-      membre.annee_adh || null
+      membre.annee_adh || null,
+      membre.droit_adhesion_2026 ||  'Incomplet'
     ];
 
     db.query(query, values, (err, result) => {
@@ -144,19 +144,19 @@ app.put('/api/membres/:id', (req, res) => {
   const { 
     nom, prenom, sexe, date_naiss, lieu_naiss, cin, date_cin, 
     lieu_cin, telephone, adress, filiere, niveau_etude, 
-    region_origine, annee_adh 
+    region_origine, annee_adh ,droit_adhesion_2026
   } = req.body;
   
   db.query(
     `UPDATE membre SET 
     nom=?, prenom=?, sexe=?, date_naiss=?, lieu_naiss=?, cin=?, 
     date_cin=?, lieu_cin=?, telephone=?, adress=?, filiere=?, 
-    niveau_etude=?, region_origine=?, annee_adh=? 
+    niveau_etude=?, region_origine=?, annee_adh=? ,droit_adhesion_2026=?
     WHERE id_membre=?`,
     [nom || null, prenom || null, sexe || null, date_naiss || null, 
      lieu_naiss || null, cin || null, date_cin || null, lieu_cin || null, 
      telephone || null, adress || null, filiere || null, niveau_etude || null, 
-     region_origine || null, annee_adh || null, req.params.id], 
+     region_origine || null, annee_adh || null, droit_adhesion_2026 || null, req.params.id], 
     (err, result) => {
       if (err) return res.status(500).json({ error: err.message });
       if (result.affectedRows === 0) {

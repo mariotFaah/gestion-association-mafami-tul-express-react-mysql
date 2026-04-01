@@ -52,7 +52,7 @@ export default function MembreDetailPage() {
     setIsSearching(true);
     try {
       // Rechercher dans tous les membres
-      const allMembers = await api.getAllMembres();
+      const allMembers = await api.getMembres();
       
       const filtered = allMembers.filter(member => {
         const searchLower = searchQuery.toLowerCase();
@@ -142,6 +142,11 @@ export default function MembreDetailPage() {
             <div className={styles.infoItem}>
               <strong>Prénom:</strong> 
               <span>{membre.prenom}</span>
+            </div>
+
+            <div className={styles.infoItem}>
+              <strong>Droit d adhesion 2026:</strong> 
+              <span>{membre.droit_adhesion_2026}</span>
             </div>
             <div className={styles.infoItem}>
               <strong>Sexe:</strong> 
@@ -262,9 +267,9 @@ export default function MembreDetailPage() {
                   </div>
                   {searchResults.map((result) => (
                     <div
-                      key={result.id}
+                      key={result.id_membre}
                       className={styles.resultItem}
-                      onClick={() => navigateToMember(result.id)}
+                      onClick={() => navigateToMember(result.id_membre)}
                     >
                       <div className={styles.resultMain}>
                         <strong>{result.nom} {result.prenom}</strong>
