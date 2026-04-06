@@ -1,4 +1,3 @@
-// src/app/membres/[id]/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -13,10 +12,12 @@ import {
   IdentificationIcon,
   PhoneIcon,
   MapPinIcon,
-  CalendarIcon
+  CalendarIcon,
+  IdentificationIcon as BadgeIcon  // Ajouter cette icône
 } from '@heroicons/react/24/outline';
 import { Membre } from '@/types/membre';
 import { api } from '@/services/api';
+import BadgeMembre from '@/components/BadgeMembre';
 import styles from './page.module.css';
 
 export default function MembreDetailPage() {
@@ -28,6 +29,7 @@ export default function MembreDetailPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Membre[]>([]);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [showBadgeModal, setShowBadgeModal] = useState(false); // Nouveau state
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
@@ -51,7 +53,6 @@ export default function MembreDetailPage() {
     
     setIsSearching(true);
     try {
-      // Rechercher dans tous les membres
       const allMembers = await api.getMembres();
       
       const filtered = allMembers.filter(member => {
@@ -64,10 +65,7 @@ export default function MembreDetailPage() {
           member.adress?.toLowerCase().includes(searchLower) ||
           member.filiere?.toLowerCase().includes(searchLower) ||
           member.niveau_etude?.toLowerCase().includes(searchLower) ||
-          member.region_origine?.toLowerCase().includes(searchLower) ||
-          member.lieu_naiss?.toLowerCase().includes(searchLower) ||
-          member.date_naiss?.includes(searchLower) ||
-          member.annee_adh?.toString().includes(searchLower)
+          member.region_origine?.toLowerCase().includes(searchLower)
         );
       });
       
@@ -115,6 +113,13 @@ export default function MembreDetailPage() {
         </div>
         <div className={styles.headerRight}>
           <button 
+            onClick={() => setShowBadgeModal(true)} 
+            className={styles.badgeButton}
+          >
+            <BadgeIcon className={styles.iconSmall} />
+            Générer le Badge
+          </button>
+          <button 
             onClick={() => setShowSearchModal(true)} 
             className={styles.searchButton}
           >
@@ -143,9 +148,8 @@ export default function MembreDetailPage() {
               <strong>Prénom:</strong> 
               <span>{membre.prenom}</span>
             </div>
-
             <div className={styles.infoItem}>
-              <strong>Droit d adhesion 2026:</strong> 
+              <strong>Droit d'adhésion 2026:</strong> 
               <span>{membre.droit_adhesion_2026}</span>
             </div>
             <div className={styles.infoItem}>
@@ -239,7 +243,7 @@ export default function MembreDetailPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Rechercher par nom, prénom, CIN, téléphone, adresse, filière..."
+                placeholder="Rechercher par nom, prénom, CIN, téléphone..."
                 className={styles.searchInput}
                 autoFocus
               />
@@ -273,28 +277,10 @@ export default function MembreDetailPage() {
                     >
                       <div className={styles.resultMain}>
                         <strong>{result.nom} {result.prenom}</strong>
-                        {result.cin && (
-                          <span className={styles.resultCIN}>CIN: {result.cin}</span>
-                        )}
                       </div>
                       <div className={styles.resultDetails}>
-                        {result.telephone && (
-                          <span className={styles.resultDetail}>
-                            <PhoneIcon className={styles.iconTiny} />
-                            {result.telephone}
-                          </span>
-                        )}
                         {result.filiere && (
-                          <span className={styles.resultDetail}>
-                            <AcademicCapIcon className={styles.iconTiny} />
-                            {result.filiere}
-                          </span>
-                        )}
-                        {result.adress && (
-                          <span className={styles.resultDetail}>
-                            <MapPinIcon className={styles.iconTiny} />
-                            {result.adress}
-                          </span>
+                          <span>{result.filiere}</span>
                         )}
                       </div>
                     </div>
@@ -308,12 +294,19 @@ export default function MembreDetailPage() {
                 <div className={styles.searchHint}>
                   <MagnifyingGlassIcon className={styles.iconLarge} />
                   <p>Saisissez un terme de recherche</p>
-                  <small>Nom, prénom, CIN, téléphone, adresse, filière...</small>
                 </div>
               )}
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modal du badge */}
+      {showBadgeModal && (
+        <BadgeMembre 
+          membre={membre} 
+          onClose={() => setShowBadgeModal(false)} 
+        />
       )}
     </div>
   );

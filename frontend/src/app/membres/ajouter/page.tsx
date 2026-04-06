@@ -22,7 +22,8 @@ export default function AjouterMembre() {
     lieu_naiss: '',
     cin: '',
     date_cin: '',
-    lieu_cin: ''
+    lieu_cin: '',
+    droit_adhesion_2026: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -159,6 +160,15 @@ export default function AjouterMembre() {
           </div>
         </div>
 
+        <div className="form-group">
+              <label>Droit d adhesion 2026</label>
+              <select name="droit_adhesion_2026" value={formData.droit_adhesion_2026} onChange={handleChange}>
+                <option value="">Sélectionner</option>
+                <option value="L1">Complet</option>
+                <option value="L2">Incomplet</option>
+              </select>
+        </div>
+
         <div className="form-section">
           <h2>Informations CIN (optionnel)</h2>
           <div className="form-grid">
@@ -214,6 +224,7 @@ export default function AjouterMembre() {
         .title {
           text-align: center;
           color: #2c3e50;
+          margin-top: 40;
           margin-bottom: 40px;
           font-size: 2rem;
         }

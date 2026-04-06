@@ -47,3 +47,7 @@ a {
     color-scheme: dark;
   }
 }
+/* Ajoutez ceci à la fin de votre fichier globals.css */
+main {
+  padding-top: 70px; /* Hauteur de la navbar */
+}
